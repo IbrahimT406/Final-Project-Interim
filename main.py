@@ -1,6 +1,8 @@
 from event_logic import simulate_event_outcome
 # from outfit_logic import score_outfit  IBRAHIM
 # from recommendation import recommend_items  DON
+from recommendation import recommend_items
+import json
 
 player_stats = {
     "mood": 100,
@@ -8,7 +10,7 @@ player_stats = {
 }
 
 print("Welcome to School 101!")
-print("Your goal is to complete five school days while"
+print("Your goal is to complete five school days while "
       "keeping your mood and health up.\n")
 
 # THIS IS THE 5 DAY LOOP (WEEK DAYS)
@@ -26,6 +28,24 @@ for day in range(1, 6):
     # PLACE HOLDER FOR DON'S FUNCTION (later) → recommend_items()
     # recommendations = recommend_items(weather, event_types, inventory, limit)
     # print(f"Recommended items: {recommendations}")
+    with open('items.json', 'r') as file:
+        available_items = json.load(file)
+
+    # Weather Forecast for the day 
+    weather = "rainy" 
+
+    # Possible events that might occur during the day
+    possible_events = ["pop_quiz", "field_trip"]  # Example of events
+
+    # Recommendations based on weather forecast and events
+    recommendations = recommend_items(
+        weather, possible_events, available_items, 5
+    )
+    print(f"Recommended items for today: {', '.join(recommendations)}")
+
+    # Ask the player what they want to pack
+    backpack_input = input("Enter backpack items: ")
+    backpack_items = [item.strip() for item in backpack_input.split(",")]
 
     # PLACEHOLDER FOR IBRAHIM'S FUNCTION (later) → score_outfit()
     # outfit_input = input("Enter outfit items (comma-separated): ")

@@ -1,0 +1,27 @@
+{
+  "umbrella": {
+    "useful_weather": ["rainy", "snowy", "rainstorm"],
+    "useful_events": ["field trip"],
+    "base_value": 1
+  },
+  "textbook": {
+    "useful_weather": [],
+    "useful_events": ["pop quiz", "study session"],
+    "base_value": 2
+  },
+  "lunch": {
+    "useful_weather": [],
+    "useful_events": ["field_trip"],
+    "base_value": 3
+  },
+  "calculator": {
+    "useful_weather": [],
+    "useful_events": ["pop_quiz", "math_class"],
+    "base_value": 1
+  },
+  "water_bottle": {
+    "useful_weather": ["sunny", "hot"],
+    "useful_events": ["field trip", "gym class"],
+    "base_value": 2
+  }
+}
