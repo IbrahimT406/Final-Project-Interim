@@ -5,7 +5,8 @@ A text-based simulation game where players pack for randomized
 school days by considering the weather and events. The goal is to
 keep mood and health as high as possible over five days.
 
-Authors: Koen, Don, Ibrahim
+Authors: Koen (I am responsible for all of main.py, we lost 
+Yasmin so one of us had to step up to make it), Don, Ibrahim
 """
 
 import random

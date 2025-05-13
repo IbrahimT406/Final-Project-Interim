@@ -1,6 +1,6 @@
 """
 Simulate_event_outcome
-Koen
+Author: Koen
 """
 
 def simulate_event_outcome(event_type, backpack_items):
