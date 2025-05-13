@@ -84,7 +84,9 @@ for day in range(1, 6):
 
     recommendations = recommend_items(weather, [event], available_items, 5)
     print(f"Available items to choose from: {', '.join(available_items.keys())}")
-    print(f"Recommended items for today: {', '.join(recommendations)}")
+    print("Hint: Think about today’s weather and event.")
+    print("Here are a few items to consider: " + 
+          ", ".join(recommendations[:random.randint(2, 3)]))
 
     backpack_input = input("Pack your backpack (comma-separated items): ")
     backpack_items = [item.strip() for item in backpack_input.split(",")]
