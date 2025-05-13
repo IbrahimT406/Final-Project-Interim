@@ -1,79 +1,108 @@
-from event_logic import simulate_event_outcome
-# from outfit_logic import score_outfit  IBRAHIM
-# from recommendation import recommend_items  DON
-from recommendation import recommend_items
-import json
+"""
+School 101
 
-player_stats = {
-    "mood": 100,
-    "health": 100
+A text-based simulation game where players pack for randomized
+school days by considering the weather and events. The goal is to
+keep mood and health as high as possible over five days.
+
+Authors: Koen, Don, Ibrahim
+"""
+
+import random
+import json
+from event_logic import simulate_event_outcome
+from recommendation import recommend_items
+
+class Player:
+    """
+    Represents the player with mood, health, and backpack items.
+    """
+
+    def __init__(self):
+        """Initializes the player's mood, health, and backpack."""
+        self.mood = 100
+        self.health = 100
+        self.backpack = []
+
+    def update_stat(self, stat_name, amount):
+        """
+        Updates the mood or health by the given amount.
+
+        Parameters:
+        stat_name (str): either "mood" or "health"
+        amount (int): how much to adjust the stat
+        """
+        if stat_name == "mood":
+            self.mood = max(0, min(100, self.mood + amount))
+        elif stat_name == "health":
+            self.health = max(0, min(100, self.health + amount))
+
+    def set_backpack(self, items):
+        """
+        Sets the backpack contents to the given list.
+
+        Parameters:
+        items (list): items packed by the player
+        """
+        self.backpack = items
+
+    def get_stats(self):
+        """
+        Returns the current mood and health in a formatted string.
+        """
+        return f"Mood: {self.mood}, Health: {self.health}"
+
+
+player = Player()
+
+with open("items.json", "r") as file:
+    available_items = json.load(file)
+
+weather_options = ["sunny", "rainy", "cloudy", "snowy"]
+event_map = {
+    "sunny": ["pop quiz", "lost lunch", "gym class"],
+    "rainy": ["rainstorm", "pop quiz", "lost lunch"],
+    "cloudy": ["pop quiz", "lost lunch"],
+    "snowy": ["rainstorm", "lost lunch"]
 }
 
 print("Welcome to School 101!")
-print("Your goal is to complete five school days while "
-      "keeping your mood and health up.\n")
+print("Your goal is to complete five school days while"
+      "keeping your mood and health up. You got this :)\n")
 
-# THIS IS THE 5 DAY LOOP (WEEK DAYS)
+# LOOP FUNCTION
 for day in range(1, 6):
-    print(f"\n--- Day {day} ---")
+    print(f"\n*~* Day {day} *~*")
 
-    # PLACEHOLDER Ask for event type
-    event_type = input("Enter today's event (rainstorm, pop quiz, "
-                       "lost lunch, gym class): ").strip()
+    weather = random.choice(weather_options)
+    event = random.choice(event_map[weather])
 
-    # PLACEHOLDER Ask for backpack items
-    backpack_input = input("Enter backpack items (comma-separated): ")
+    print(f"Today's weather: {weather}")
+    print(f"Today's event: {event}")
+
+    recommendations = recommend_items(weather, [event], available_items, 5)
+    print(f"Here's what to choose from: {', '.join(available_items)}")
+
+    backpack_input = input("Pack your backpack (comma-separated items): ")
     backpack_items = [item.strip() for item in backpack_input.split(",")]
+    player.set_backpack(backpack_items)
 
-    # PLACE HOLDER FOR DON'S FUNCTION (later) → recommend_items()
-    # recommendations = recommend_items(weather, event_types, inventory, limit)
-    # print(f"Recommended items: {recommendations}")
-    with open('items.json', 'r') as file:
-        available_items = json.load(file)
-
-    # Weather Forecast for the day 
-    weather = "rainy" 
-
-    # Possible events that might occur during the day
-    possible_events = ["pop_quiz", "field_trip"]  # Example of events
-
-    # Recommendations based on weather forecast and events
-    recommendations = recommend_items(
-        weather, possible_events, available_items, 5
-    )
-    print(f"Recommended items for today: {', '.join(recommendations)}")
-
-    # Ask the player what they want to pack
-    backpack_input = input("Enter backpack items: ")
-    backpack_items = [item.strip() for item in backpack_input.split(",")]
-
-    # PLACEHOLDER FOR IBRAHIM'S FUNCTION (later) → score_outfit()
-    # outfit_input = input("Enter outfit items (comma-separated): ")
-    # outfit_items = [item.strip() for item in outfit_input.split(",")]
-    # outfit_score = score_outfit(weather, temperature, outfit_items)
-    # Apply outfit_score to health here
-
-    # MY FUNCTION OF EVENT OUTCOME
-    result = simulate_event_outcome(event_type, backpack_items)
+    result = simulate_event_outcome(event, player.backpack)
     print(result["outcome"])
 
-    # MOOD/ HEALTH/ STAT CHANGES !!STAY BETWEEN 0-100 !!
     for stat in ["mood", "health"]:
         if stat in result:
-            player_stats[stat] += result[stat]
-            player_stats[stat] = max(0, min(100, player_stats[stat]))
-    # THIS SHOWS CURRENT PLAYER STATS
-    print(
-    f"Current Mood: {player_stats['mood']}, "
-    f"Current Health: {player_stats['health']}"
-)
+            player.update_stat(stat, result[stat])
 
-# GAME END
-print("\n--- End of the Week ---")
-print(f"Final Mood: {player_stats['mood']}")
-print(f"Final Health: {player_stats['health']}")
+    print(f"End of Day {day}: {player.get_stats()}")
 
-if player_stats['mood'] > 70 and player_stats['health'] > 70:
+# RESULTS AFTER 5 DAYS
+print("\nUwU End of the Week UwU")
+print(f"Final Stats: {player.get_stats()}")
+
+if player.mood > 70 and player.health > 70:
     print("Way to go, kiddo! You finished the week like a champ!")
+elif player.mood < 30 or player.health < 30:
+    print("Rough week... rest up and try again next tomorrow.")
 else:
-    print("Nice job, buddy. Let's sharpen your skills for next time, though!")
+    print("Not bad, keep your head up!")
