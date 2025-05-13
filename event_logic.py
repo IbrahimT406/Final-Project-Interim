@@ -27,18 +27,16 @@ def simulate_event_outcome(event_type, backpack_items):
         required_items = ["snack", "water"]
         stat_affected = "mood"
     elif event_type == "gym class":
-        required_items = ["sneakers"]
+        required_items = ["sneakers", "water_bottle"]
         stat_affected = "health"
     else:
         raise ValueError("Unknown event type")
 
-    # What is missing
     missing_items = []
     for item in required_items:
         if item not in backpack_items:
             missing_items.append(item)
 
-    # Outcome
     if len(missing_items) == 0:
         message = f"You were ready for the {event_type}!"
         stat_change = 10
@@ -51,3 +49,4 @@ def simulate_event_outcome(event_type, backpack_items):
         "outcome": message,
         stat_affected: stat_change
     }
+    
