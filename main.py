@@ -5,7 +5,7 @@ A text-based simulation game where players pack for randomized
 school days by considering the weather and events. The goal is to
 keep mood and health as high as possible over five days.
 
-Authors: Koen (I am responsible for all of main.py, we lost 
+Authors: Koen (I am responsible for most of main.py, we lost 
 Yasmin so one of us had to step up to make it), Don, Ibrahim
 """
 
@@ -13,6 +13,7 @@ import random
 import json
 from event_logic import simulate_event_outcome
 from recommendation import recommend_items
+from score import evaluate_day
 
 class Player:
     """
@@ -94,6 +95,33 @@ for day in range(1, 6):
     for stat in ["mood", "health"]:
         if stat in result:
             player.update_stat(stat, result[stat])
+            
+    outfit = {
+        "warmth": 5,
+        "waterproof": "umbrella" in backpack_items or 
+                  "raincoat" in backpack_items,
+        "accessories": [
+            item for item in backpack_items 
+            if item in ["umbrella", "sunglasses", "hat"]
+        ]
+    }
+
+    weather_data = {
+        "temperature": random.randint(30, 85),
+        "condition": weather
+    }
+
+    score_result = evaluate_day(
+        weather_data,
+        [event],
+        outfit,
+        backpack_items,
+        available_items
+    )
+
+    print(f"Outfit Score: {score_result['outfit_score']}, "
+          f"Backpack Score: {score_result['backpack_score']}, "
+          f"Overall Score: {score_result['overall_score']}")
 
     print(f"End of Day {day}: {player.get_stats()}")
 
