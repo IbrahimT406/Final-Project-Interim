@@ -1,6 +1,6 @@
 {
   "umbrella": {
-    "useful_weather": ["rainy", "snowy", "rainstorm"],
+    "useful_weather": ["rainy", "snowy"],
     "useful_events": ["field trip", "rainstorm"],
     "base_value": 1
   },
@@ -22,6 +22,36 @@
   "water_bottle": {
     "useful_weather": ["sunny", "hot"],
     "useful_events": ["field trip", "gym class", "lost lunch"],
+    "base_value": 2
+  },
+  "notebook": {
+    "useful_weather": [],
+    "useful_events": ["pop quiz", "study session"],
+    "base_value": 2
+  },
+  "pencil": {
+    "useful_weather": [],
+    "useful_events": ["pop quiz", "study session"],
+    "base_value": 1
+  },
+  "snack": {
+    "useful_weather": [],
+    "useful_events": ["field trip", "lost lunch"],
+    "base_value": 2
+  },
+  "gym_clothes": {
+    "useful_weather": [],
+    "useful_events": ["gym class"],
+    "base_value": 2
+  },
+  "sneakers": {
+    "useful_weather": [],
+    "useful_events": ["gym class", "field trip"],
+    "base_value": 2
+  },
+  "raincoat": {
+    "useful_weather": ["rainy", "snowy", "cloudy"],
+    "useful_events": ["rainstorm", "field trip"],
     "base_value": 2
   }
 }

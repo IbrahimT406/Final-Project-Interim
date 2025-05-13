@@ -83,7 +83,8 @@ for day in range(1, 6):
     print(f"Today's event: {event}")
 
     recommendations = recommend_items(weather, [event], available_items, 5)
-    print(f"Here's what to choose from: {', '.join(available_items)}")
+    print(f"Available items to choose from: {', '.join(available_items.keys())}")
+    print(f"Recommended items for today: {', '.join(recommendations)}")
 
     backpack_input = input("Pack your backpack (comma-separated items): ")
     backpack_items = [item.strip() for item in backpack_input.split(",")]
