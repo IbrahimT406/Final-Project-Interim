@@ -1,7 +1,7 @@
 {
   "umbrella": {
     "useful_weather": ["rainy", "snowy", "rainstorm"],
-    "useful_events": ["field trip"],
+    "useful_events": ["field trip", "rainstorm"],
     "base_value": 1
   },
   "textbook": {
@@ -11,17 +11,17 @@
   },
   "lunch": {
     "useful_weather": [],
-    "useful_events": ["field_trip"],
+    "useful_events": ["field trip", "lost lunch"],
     "base_value": 3
   },
   "calculator": {
     "useful_weather": [],
-    "useful_events": ["pop_quiz", "math_class"],
+    "useful_events": ["pop quiz", "math class"],
     "base_value": 1
   },
   "water_bottle": {
     "useful_weather": ["sunny", "hot"],
-    "useful_events": ["field trip", "gym class"],
+    "useful_events": ["field trip", "gym class", "lost lunch"],
     "base_value": 2
   }
 }
