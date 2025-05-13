@@ -69,7 +69,7 @@ event_map = {
 }
 
 print("Welcome to School 101!")
-print("Your goal is to complete five school days while"
+print("Your goal is to complete five school days while "
       "keeping your mood and health up. You got this :)\n")
 
 # LOOP FUNCTION

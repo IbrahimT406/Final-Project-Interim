@@ -8,7 +8,8 @@ def evaluate_outfit_score(weather, outfit):
     they get a bonus. 
     
     Parameters:
-    outfit (dict): Contains 'warmth', 'waterproof', and optional 'accessories' (list).
+    outfit (dict): Contains 'warmth', 'waterproof', and optional
+    'accessories' (list).
     weather (dict): Contains 'temperature' (int) and 'condition' (str).
     
     Returns:
