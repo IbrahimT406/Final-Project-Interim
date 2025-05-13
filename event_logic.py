@@ -16,37 +16,42 @@ def simulate_event_outcome(event_type, backpack_items):
     A dict with a message and a mood or health change.
     """
 
-    # From JSON later on
-    if event_type == "rainstorm":
-        required_items = ["umbrella", "raincoat"]
-        stat_affected = "health"
-    elif event_type == "pop quiz":
-        required_items = ["notebook", "pencil"]
-        stat_affected = "mood"
-    elif event_type == "lost lunch":
-        required_items = ["snack", "water"]
-        stat_affected = "mood"
-    elif event_type == "gym class":
-        required_items = ["sneakers", "water_bottle"]
-        stat_affected = "health"
-    else:
+    event_data = {
+        "rainstorm": {
+            "required": ["umbrella", "raincoat"],
+            "stat": "health"
+        },
+        "pop quiz": {
+            "required": ["notebook", "pencil"],
+            "stat": "mood"
+        },
+        "lost lunch": {
+            "required": ["snack", "water_bottle"],
+            "stat": "mood"
+        },
+        "gym class": {
+            "required": ["sneakers", "water_bottle"],
+            "stat": "health"
+        }
+    }
+
+    if event_type not in event_data:
         raise ValueError("Unknown event type")
 
-    missing_items = []
-    for item in required_items:
-        if item not in backpack_items:
-            missing_items.append(item)
+    required_items = event_data[event_type]["required"]
+    stat_affected = event_data[event_type]["stat"]
 
-    if len(missing_items) == 0:
+    # Determine missing items
+    missing_items = [item for item in required_items if item not in backpack_items]
+
+    if not missing_items:
         message = f"You were ready for the {event_type}!"
         stat_change = 10
     else:
-        message = f"You were missing: {', '.join(missing_items)} during the " \
-          f"{event_type}."
+        message = f"You were missing: {', '.join(missing_items)} during the {event_type}."
         stat_change = -15
 
     return {
         "outcome": message,
         stat_affected: stat_change
     }
-    
