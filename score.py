@@ -5,7 +5,8 @@ def evaluate_outfit_score(weather, outfit):
     they get a bonus. 
     
     Parameters:
-    outfit (dict): Contains 'warmth', 'waterproof', and optional 'accessories' (list).
+    outfit (dict): 
+    Contains 'warmth', 'waterproof', and optional 'accessories' (list).
     weather (dict): Contains 'temperature' (int) and 'condition' (str).
     
     Returns:
@@ -69,19 +70,22 @@ def evaluate_outfit_score(weather, outfit):
 
 
 
-def evaluate_backpack_score(weather, event_types, backpack_items, available_items):
+def evaluate_backpack_score(
+    weather, event_types, backpack_items, available_items
+):
     """ 
     Evaluates how well the player's backpack items align with the day's 
     weather and events.
 
     Parameters:
-    - weather (str): The weather condition for the day (e.g., "rainy", "sunny").
-    - event_types (list): List of potential events for the day.
-    - backpack_items (list): List of items packed by the player.
-    - available_items (dict): Dictionary of all possible items with their attributes.
+    weather (str): The weather condition for the day (e.g., "rainy", "sunny").
+    event_types (list): List of potential events for the day.
+    backpack_items (list): List of items packed by the player.
+    available_items (dict): Dictionary of all possible items with 
+    their attributes.
 
     Returns:
-    - int: A score ranging from 0 to 100.
+    int: A score ranging from 0 to 100.
     """
     score = 100
 
@@ -118,7 +122,8 @@ def evaluate_backpack_score(weather, event_types, backpack_items, available_item
     if weather == "rainstorm":
         essential_items.append("umbrella")
 
-    """this determines what items are essential based on the anticipated events"""
+    """this determines what items are essential based on the
+    anticipated events"""
     for event in event_types:
         if event == "pop quiz":
             essential_items.append("calculator")
@@ -180,15 +185,18 @@ def evaluate_day(weather, events, outfit, backpack, available_items):
     events: list - deals with the anticipated events for the day
     outfit: dict - includes data from the outfit function
     backpack: list - takes the list from the items in the backpack
-    available_items: dict - takes account of the available items and their attributes 
+    available_items: dict - takes account of the available items and 
+    their attributes 
     
     
     Returns:
-    - dict: provides the individual scores and overall score.
+    dict: provides the individual scores and overall score.
     """
     
     outfit_score = evaluate_outfit_score(weather, outfit)
-    backpack_score = evaluate_backpack_score(weather['condition'], events, backpack, available_items)
+    backpack_score = evaluate_backpack_score(
+        weather['condition'], events, backpack, available_items
+    )
     overall_score = (outfit_score + backpack_score) // 2
     
     return {
