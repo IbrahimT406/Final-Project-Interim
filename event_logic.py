@@ -40,15 +40,15 @@ def simulate_event_outcome(event_type, backpack_items):
 
     required_items = event_data[event_type]["required"]
     stat_affected = event_data[event_type]["stat"]
-
-    # Determine missing items
-    missing_items = [item for item in required_items if item not in backpack_items]
+    missing_items = [
+        item for item in required_items if item not in backpack_items
+    ]
 
     if not missing_items:
         message = f"You were ready for the {event_type}!"
         stat_change = 10
     else:
-        message = f"You were missing: {', '.join(missing_items)} during the {event_type}."
+        message = f"Needed: {', '.join(missing_items)} during the {event_type}."
         stat_change = -15
 
     return {
